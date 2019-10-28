@@ -17,10 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    profile.cpp \
+    profilemodel.cpp \
 
 HEADERS += \
-    mainmenu.h
+    mainmenu.h \
+    profile.h \
+    profilemodel.h \
 
 FORMS +=
 
