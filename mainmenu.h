@@ -7,6 +7,8 @@
 
 class MainMenu : public QSystemTrayIcon
 {
+Q_OBJECT
+
 public:
     MainMenu(QObject *parent = nullptr);
     ~MainMenu();
