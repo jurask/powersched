@@ -7,7 +7,7 @@
 class Profile
 {
 public:
-    Profile(QString& name, uint16_t standby, uint16_t suspend, uint16_t off, bool awake);
+    Profile(const QString& name, uint16_t standby, uint16_t suspend, uint16_t off, bool awake);
     Profile(const QJsonObject& data);
     QJsonObject toJson() const;
     QString name() const;

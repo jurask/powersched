@@ -7,7 +7,7 @@
 ProfileModel::ProfileModel(QObject *parent):QAbstractListModel(parent){
 }
 
-ProfileModel::ProfileModel(const QString& filename){
+ProfileModel::ProfileModel(const QString& filename, QObject *parent):QAbstractListModel(parent){
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly))
         return;
@@ -53,23 +53,20 @@ bool ProfileModel::save(const QString &filename) const{
     return true;
 }
 
-QVariant ProfileModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
+QVariant ProfileModel::headerData(int section, Qt::Orientation orientation, int role) const{
     if (section != 0 || orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QVariant();
     else
         return QVariant("name");
 }
 
-int ProfileModel::rowCount(const QModelIndex &parent) const
-{
+int ProfileModel::rowCount(const QModelIndex &parent) const{
     if (parent.isValid())
         return 0;
     return _data.size();
 }
 
-QVariant ProfileModel::data(const QModelIndex &index, int role) const
-{
+QVariant ProfileModel::data(const QModelIndex &index, int role) const{
     if (!index.isValid())
         return QVariant();
     if (role == Qt::DisplayRole)
@@ -85,10 +82,43 @@ QVariant ProfileModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool ProfileModel::removeRows(int row, int count, const QModelIndex &parent)
-{
+bool ProfileModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    if (!index.isValid() || index.column() != 0 || index.row() >= _data.size())
+        return false;
+    if (role == Qt::DisplayRole){
+        _data[index.row()].setName(value.toString());
+        emit dataChanged(index, index);
+        return true;
+    } else if (role == ProfileRole::StandbyRole){
+        _data[index.row()].setStandby(value.toUInt());
+        emit dataChanged(index, index);
+        return true;
+    } else if (role == ProfileRole::SuspendRole){
+        _data[index.row()].setSuspend(value.toUInt());
+        emit dataChanged(index, index);
+        return true;
+    } else if (role == ProfileRole::OffRole){
+        _data[index.row()].setOff(value.toUInt());
+        emit dataChanged(index, index);
+        return true;
+    } else if (role == ProfileRole::AwakeRole){
+        _data[index.row()].setAwake(value.toBool());
+        emit dataChanged(index, index);
+        return true;
+    }
+    return false;
+}
+
+bool ProfileModel::removeRows(int row, int count, const QModelIndex &parent){
     beginRemoveRows(parent, row, row + count - 1);
     for (int i = 0; i < count; i++)
         _data.removeAt(row);
     endRemoveRows();
+    return true;
+}
+
+void ProfileModel::append(const Profile &profile){
+    beginInsertRows(QModelIndex(), _data.length(), _data.length()+1);
+    _data.append(profile);
+    endInsertRows();
 }

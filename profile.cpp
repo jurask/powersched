@@ -1,6 +1,6 @@
 #include "profile.h"
 
-Profile::Profile(QString& name, uint16_t standby, uint16_t suspend, uint16_t off, bool awake){
+Profile::Profile(const QString &name, uint16_t standby, uint16_t suspend, uint16_t off, bool awake){
     _name = name;
     _standby = standby;
     _suspend = suspend;
@@ -25,7 +25,7 @@ Profile::Profile(const QJsonObject& data){
     else
         return;
     if (data["awake"].isBool())
-        _off = data["awake"].toBool();
+        _awake = data["awake"].toBool();
     else
         return;
     if (data["name"].isString())

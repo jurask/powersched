@@ -19,14 +19,20 @@ SOURCES += \
     main.cpp \
     mainmenu.cpp \
     profile.cpp \
+    profileedit.cpp \
     profilemodel.cpp \
+    settings.cpp
 
 HEADERS += \
     mainmenu.h \
     profile.h \
+    profileedit.h \
     profilemodel.h \
+    settings.h
 
-FORMS +=
+FORMS += \
+    profileedit.ui \
+    settings.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

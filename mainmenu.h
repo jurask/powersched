@@ -13,6 +13,9 @@ public:
     MainMenu(QObject *parent = nullptr);
     ~MainMenu();
     QMenu* menu;
+
+public slots:
+    void onSettings();
 };
 
 #endif // MAINMENU_H
