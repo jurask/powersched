@@ -36,6 +36,16 @@ bool ProfileModel::contains(const QString &name) const{
     return found;
 }
 
+QModelIndex ProfileModel::find(const QString& name) const{
+    int row = 0;
+    for (const Profile& profile:_data){
+        if (profile.name() == name)
+            return index(row);
+        row++;
+    }
+    return QModelIndex();
+}
+
 bool ProfileModel::save(const QString &filename) const{
     QJsonArray array;
     for (const Profile& profile:_data)

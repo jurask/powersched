@@ -19,6 +19,7 @@ public:
     explicit ProfileModel(QObject *parent = nullptr);
     ProfileModel(const QString& filename, QObject *parent = nullptr);
     bool contains(const QString& name) const;
+    QModelIndex find(const QString& name) const;
     bool save(const QString& filename) const;
     void append(const Profile& profile);
 

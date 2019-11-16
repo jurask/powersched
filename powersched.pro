@@ -21,18 +21,25 @@ SOURCES += \
     profile.cpp \
     profileedit.cpp \
     profilemodel.cpp \
-    settings.cpp
+    settings.cpp \
+    trigger.cpp \
+    triggeredit.cpp \
+    triggermodel.cpp
 
 HEADERS += \
     mainmenu.h \
     profile.h \
     profileedit.h \
     profilemodel.h \
-    settings.h
+    settings.h \
+    trigger.h \
+    triggeredit.h \
+    triggermodel.h
 
 FORMS += \
     profileedit.ui \
-    settings.ui
+    settings.ui \
+    triggeredit.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

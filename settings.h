@@ -4,6 +4,7 @@
 #include <QDialog>
 
 #include "profilemodel.h"
+#include "triggermodel.h"
 
 namespace Ui {
 class Settings;
@@ -18,16 +19,27 @@ public:
     ~Settings() override;
     void saveSettings();
 
+public slots:
+    void done(int r) override;
+
 private slots:
-    void on_add_clicked();
+    void on_profEdit_clicked();
 
-    void on_remove_clicked();
+    void on_profAdd_clicked();
 
-    void on_edit_clicked();
+    void on_profRemove_clicked();
+
+    void on_trigEdit_clicked();
+
+    void on_trigAdd_clicked();
+
+    void on_trigRemove_clicked();
 
 private:
     Ui::Settings *ui;
     ProfileModel* profileModel;
+    TriggerModel* triggerModel;
+
 };
 
 #endif // SETTINGS_H

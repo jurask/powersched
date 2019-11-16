@@ -28,7 +28,7 @@
         <widget class="QListView" name="profiles"/>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="edit">
+        <widget class="QPushButton" name="profEdit">
          <property name="text">
           <string>Edit</string>
          </property>
@@ -39,7 +39,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QPushButton" name="add">
+        <widget class="QPushButton" name="profAdd">
          <property name="text">
           <string>Add</string>
          </property>
@@ -50,7 +50,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="remove">
+        <widget class="QPushButton" name="profRemove">
          <property name="text">
           <string>Remove</string>
          </property>
@@ -79,6 +79,54 @@
       <attribute name="title">
        <string>Triggers</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0" rowspan="4">
+        <widget class="QListView" name="triggers"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="trigEdit">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+         <property name="icon">
+          <iconset theme="edit-entry"/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="trigAdd">
+         <property name="text">
+          <string>Add</string>
+         </property>
+         <property name="icon">
+          <iconset theme="list-add"/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="trigRemove">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+         <property name="icon">
+          <iconset theme="list-remove"/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>218</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
@@ -94,6 +142,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>profiles</tabstop>
+  <tabstop>profEdit</tabstop>
+  <tabstop>profAdd</tabstop>
+  <tabstop>profRemove</tabstop>
+  <tabstop>triggers</tabstop>
+  <tabstop>trigEdit</tabstop>
+  <tabstop>trigAdd</tabstop>
+  <tabstop>trigRemove</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
