@@ -35,6 +35,10 @@ private slots:
 
     void on_trigRemove_clicked();
 
+    void on_profiles_doubleClicked(const QModelIndex &index);
+
+    void on_triggers_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::Settings *ui;
     ProfileModel* profileModel;

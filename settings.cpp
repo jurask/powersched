@@ -110,3 +110,13 @@ void Settings::done(int r){
     } else
         QDialog::done(r);
 }
+
+void Settings::on_profiles_doubleClicked(const QModelIndex &index){
+    ui->profiles->setCurrentIndex(index);
+    on_profEdit_clicked();
+}
+
+void Settings::on_triggers_doubleClicked(const QModelIndex &index){
+    ui->triggers->setCurrentIndex(index);
+    on_trigEdit_clicked();
+}

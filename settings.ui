@@ -89,7 +89,8 @@
           <string>Edit</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-entry"/>
+          <iconset theme="edit-entry">
+           <normaloff>.</normaloff>.</iconset>
          </property>
         </widget>
        </item>
@@ -99,7 +100,8 @@
           <string>Add</string>
          </property>
          <property name="icon">
-          <iconset theme="list-add"/>
+          <iconset theme="list-add">
+           <normaloff>.</normaloff>.</iconset>
          </property>
         </widget>
        </item>
@@ -109,7 +111,8 @@
           <string>Remove</string>
          </property>
          <property name="icon">
-          <iconset theme="list-remove"/>
+          <iconset theme="list-remove">
+           <normaloff>.</normaloff>.</iconset>
          </property>
         </widget>
        </item>
