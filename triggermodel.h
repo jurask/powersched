@@ -19,7 +19,8 @@ public:
         FridayRole = Qt::UserRole + 6,
         SaturdayRole = Qt::UserRole + 7,
         SundayRole = Qt::UserRole + 8,
-        ProfileRole = Qt::UserRole + 9
+        ProfileRole = Qt::UserRole + 9,
+        TimeoutRole = Qt::UserRole + 10
     };
     explicit TriggerModel(QObject *parent = nullptr);
     TriggerModel(const QString& filename, ProfileModel* profiles, QObject *parent = nullptr);

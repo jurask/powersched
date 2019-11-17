@@ -39,10 +39,14 @@ private:
     QActionGroup* profiles;
     QAction* separator;
     Display* disp;
+    QTimer* timer;
+    QString profileToActivate;
     void loadModels();
 
 private slots:
     void profileSelected(QAction* action);
+    void onTimer();
+    void planAction();
 
 };
 

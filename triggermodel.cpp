@@ -96,6 +96,22 @@ QVariant TriggerModel::data(const QModelIndex &index, int role) const{
         return QVariant(_data[index.row()].weekday(6));
     if (role == TriggerRole::ProfileRole)
         return QVariant(_data[index.row()].profile());
+    if (role == TriggerRole::TimeoutRole){
+        QDateTime now = QDateTime::currentDateTime();
+        int weekday = now.date().dayOfWeek()-1;
+        for (uint8_t i = 0; i < 8; i++){
+            uint8_t dayToProbe = (weekday+i)%7;
+            if (_data[index.row()].weekday(dayToProbe)){
+                if (i == 0){
+                    if (now.time() > _data[index.row()].time())
+                        continue;
+                }
+                // found day
+                QDateTime event = QDateTime(now.date().addDays(i), _data[index.row()].time());
+                return event.toMSecsSinceEpoch()-now.toMSecsSinceEpoch();
+            }
+        }
+    }
     return QVariant();
 }
 

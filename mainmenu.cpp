@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QApplication>
 #include <QStandardPaths>
+#include <QTimer>
 
 MainMenu::MainMenu(QObject* parent):QSystemTrayIcon(parent){
     disp = XOpenDisplay(nullptr);
@@ -21,10 +22,13 @@ MainMenu::MainMenu(QObject* parent):QSystemTrayIcon(parent){
     menu->addAction(exit);
     loadModels();
     setContextMenu(menu);
+    timer = new QTimer(this);
+    planAction();
     // connect
     connect(exit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(settings, SIGNAL(triggered()), this, SLOT(onSettings()));
     connect(profiles, SIGNAL(triggered(QAction*)), this, SLOT(profileSelected(QAction*)));
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimer()));
 }
 
 MainMenu::~MainMenu(){
@@ -37,6 +41,7 @@ void MainMenu::onSettings(){
     if (settings->exec()){
         settings->saveSettings();
         loadModels();
+        planAction();
     }
     delete settings;
 }
@@ -64,11 +69,37 @@ void MainMenu::loadModels(){
 
 void MainMenu::profileSelected(QAction* action){
     QModelIndex profile = profileModel->find(action->text());
-    qDebug()<<profile.data(ProfileModel::StandbyRole).toUInt() << " " << profile.data(ProfileModel::SuspendRole).toUInt() << " " << profile.data(ProfileModel::OffRole).toUInt() << "\n";
     DPMSEnable(disp);
     DPMSSetTimeouts(disp, profile.data(ProfileModel::StandbyRole).toUInt()*60, profile.data(ProfileModel::SuspendRole).toUInt()*60, profile.data(ProfileModel::OffRole).toUInt()*60);
-    //DPMSSetTimeouts(disp, 0, 0, 0);
     if (profile.data(ProfileModel::AwakeRole).toBool())
         DPMSForceLevel(disp, DPMSModeOn);
     XFlush(disp);
+}
+
+void MainMenu::planAction(){
+    timer->stop();
+    if (triggerModel->rowCount() == 0)
+        return;
+    int64_t timeout = triggerModel->index(0).data(TriggerModel::TimeoutRole).toLongLong();
+    QString profile = triggerModel->index(0).data(TriggerModel::ProfileRole).toPersistentModelIndex().data().toString();
+    for (int i = 0; i < triggerModel->rowCount(); i++){
+        if (triggerModel->index(i).data(TriggerModel::TimeoutRole).toLongLong() < timeout){
+            timeout = triggerModel->index(i).data(TriggerModel::TimeoutRole).toLongLong();
+            profile = triggerModel->index(i).data(TriggerModel::ProfileRole).toPersistentModelIndex().data().toString();
+        }
+    }
+    // schedule timer
+    profileToActivate = profile;
+    timer->start(timeout);
+}
+
+void MainMenu::onTimer(){
+    for (QAction* action: profiles->actions()){
+        if (action->text() == profileToActivate){
+            action->activate(QAction::Trigger);
+            planAction();
+            return;
+        }
+    }
+    planAction();
 }
