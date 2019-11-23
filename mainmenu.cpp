@@ -1,8 +1,6 @@
 #include "mainmenu.h"
 #include "settings.h"
 
-#include <QDebug>
-
 #include <QMenu>
 #include <QApplication>
 #include <QStandardPaths>
