@@ -20,6 +20,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setQuitOnLastWindowClosed(false);
     QCoreApplication::setOrganizationName("jurask");
     QCoreApplication::setApplicationName("powershed");
     Display* disp = XOpenDisplay(nullptr);
