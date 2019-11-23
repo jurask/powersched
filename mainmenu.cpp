@@ -12,7 +12,7 @@ MainMenu::MainMenu(QObject* parent):QSystemTrayIcon(parent){
     disp = XOpenDisplay(nullptr);
     profiles = new QActionGroup(this);
     // build ui
-    QIcon icon = QIcon::fromTheme("video-display");
+    QIcon icon = QIcon::fromTheme("computer");
     setIcon(icon);
     menu = new QMenu();
     QAction* exit = new QAction(QIcon::fromTheme("application-exit"), "Exit", this);
