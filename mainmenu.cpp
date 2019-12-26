@@ -68,6 +68,7 @@ void MainMenu::loadModels(){
 void MainMenu::profileSelected(QAction* action){
     QModelIndex profile = profileModel->find(action->text());
     DPMSEnable(disp);
+    XSetScreenSaver(disp, 0, 0, DefaultBlanking, DefaultExposures);
     DPMSSetTimeouts(disp, profile.data(ProfileModel::StandbyRole).toUInt()*60, profile.data(ProfileModel::SuspendRole).toUInt()*60, profile.data(ProfileModel::OffRole).toUInt()*60);
     if (profile.data(ProfileModel::AwakeRole).toBool())
         DPMSForceLevel(disp, DPMSModeOn);
